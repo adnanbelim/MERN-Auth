@@ -37,6 +37,7 @@ function Login() {
                 headers: {
                     'Content-type': 'application/json',
                 },
+                mode: 'no-cors',
                 body: JSON.stringify(loginInfo),
             });
             const result = await response.json(); //result give us message and success (check Network tab)

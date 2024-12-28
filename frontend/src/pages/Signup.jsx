@@ -34,6 +34,7 @@ function Signup() {
             const url = `${import.meta.env.VITE_BASE_URL}/auth/signup`;
             const response = await fetch(url, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {
                     'Content-type': 'application/json',
                 },

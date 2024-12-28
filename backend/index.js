@@ -8,6 +8,10 @@ const AuthRouter =  require('./routes/AuthRouter');
 const ProductRouter = require('./routes/ProductRouter');
 const PORT = process.env.PORT || 8000;
 
+app.get('/', (req, res) => {
+    res.send('Backend work successfully');
+})
+
 app.get('/ping', (req, res)=> {
     res.send('pong');
 })

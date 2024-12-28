@@ -22,7 +22,7 @@ function Home() {
 
   const handleProducts = async () => {
     try {
-      const url = 'http://localhost:9000/products';
+      const url = `${import.meta.env.VITE_BASE_URL}/products`;
       const response = await fetch(url, {
         headers:{
           'Authorization': localStorage.getItem('token')

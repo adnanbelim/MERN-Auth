@@ -31,7 +31,7 @@ function Signup() {
             return;
         }
         try {
-            const url = 'http://localhost:9000/auth/signup';
+            const url = `${import.meta.env.VITE_BASE_URL}/auth/signup`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {

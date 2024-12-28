@@ -6,9 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./routes/AuthRouter');
 const ProductRouter = require('./routes/ProductRouter');
-const serverless = require('serverless-http');  // Import serverless-http
-
-const PORT = process.env.PORT || 8000;
+const serverless = require('serverless-http'); // Import the serverless-http package
 
 // Middleware
 app.use(bodyParser.json());
@@ -28,12 +26,7 @@ app.get('/ping', (req, res) => {
 app.use('/auth', AuthRouter);
 app.use('/products', ProductRouter);
 
-// Vercel serverless export
-module.exports.handler = serverless(app);  // Export the handler
+// Vercel-specific export
+module.exports.handler = serverless(app); // Wrap the Express app in the serverless handler
 
-// Local server start (for development)
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running on PORT ${PORT}`);
-    });
-}
+// The `app.listen(PORT)` is not needed for Vercel

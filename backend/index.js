@@ -4,25 +4,36 @@ require('dotenv').config();
 require('./models/db.config');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const AuthRouter =  require('./routes/AuthRouter');
+const AuthRouter = require('./routes/AuthRouter');
 const ProductRouter = require('./routes/ProductRouter');
+const serverless = require('serverless-http');  // Import serverless-http
+
 const PORT = process.env.PORT || 8000;
 
-app.get('/', (req, res) => {
-    res.send('Backend work successfully');
-})
-
-app.get('/ping', (req, res)=> {
-    res.send('pong');
-})
-
+// Middleware
 app.use(bodyParser.json());
 app.use(cors());
-// auth route
-app.use('/auth', AuthRouter)
-// create authanticate router using jwt
+app.options('*', cors());  // Allow all origins
+
+// Routes
+app.get('/', (req, res) => {
+    res.send('Backend works successfully');
+});
+
+app.get('/ping', (req, res) => {
+    res.send('pong');
+});
+
+// Auth and Product Routes
+app.use('/auth', AuthRouter);
 app.use('/products', ProductRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server running on PORT ${PORT}`);
-});
+// Vercel serverless export
+module.exports.handler = serverless(app);  // Export the handler
+
+// Local server start (for development)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on PORT ${PORT}`);
+    });
+}

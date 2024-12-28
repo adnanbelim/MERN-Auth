@@ -3,37 +3,22 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Page404 from './pages/Page404';
-import { useState } from 'react';
-import RefreshHandler from './RefreshHandler';
 
 function App() {
-  const [isAuthRoute, setIsAuthRoute] = useState(false);
-
-  // Function to guard private routes (e.g., /home)
-  const privateRoutes = ({ element }) => {
-    return !isAuthRoute ? element : <Navigate to="/login" />;
-  };
-
-  // Function to guard public routes (e.g., /signup, /login)
-  const publicRoutes = ({ element }) => {
-    return isAuthRoute ? element : <Navigate to="/home" />;
-  };
-
   return (
     <>
-      <RefreshHandler setIsAuthRoute={setIsAuthRoute} />
       <Routes>
-        {/* Redirect root to /login */}
+        {/* Redirect root ("/") to /login */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Private Route: Only logged-in users can access */}
-        <Route path="/home" element={privateRoutes({ element: <Home /> })} />
+        {/* Route for Home page */}
+        <Route path="/home" element={<Home />} />
 
-        {/* Public Routes: Only accessible if not logged in */}
-        <Route path="/signup" element={publicRoutes({ element: <Signup /> })} />
-        <Route path="/login" element={publicRoutes({ element: <Login /> })} />
+        {/* Public Routes */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
 
-        {/* 404 Page */}
+        {/* 404 Page for unmatched routes */}
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>
@@ -41,3 +26,4 @@ function App() {
 }
 
 export default App;
+

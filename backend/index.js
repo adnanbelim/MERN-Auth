@@ -18,6 +18,8 @@ app.get('/ping', (req, res)=> {
 
 app.use(bodyParser.json());
 app.use(cors());
+// for deploye
+app.options('*', cors());
 // auth route
 app.use('/auth', AuthRouter)
 // create authanticate router using jwt

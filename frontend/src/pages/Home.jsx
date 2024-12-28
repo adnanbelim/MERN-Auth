@@ -24,7 +24,6 @@ function Home() {
     try {
       const url = `${import.meta.env.VITE_BASE_URL}/products`;
       const response = await fetch(url, {
-        mode: 'no-cors',
         headers:{
           'Authorization': localStorage.getItem('token')
         }
